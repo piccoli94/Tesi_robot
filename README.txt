@@ -13,7 +13,7 @@ Git add *Nome File*
 Git commit *Nome File*
 Per essere sicuro di aver fatto bene: Git status ----> Dovrebbe darti tutto okay
 Git push origin master
-
+Git log (cronologia delle modifiche)
 
 
 
