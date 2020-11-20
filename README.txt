@@ -15,6 +15,9 @@ Per essere sicuro di aver fatto bene: Git status ----> Dovrebbe darti tutto okay
 Git push origin master
 
 
+git checkout *NOME_BRANCH* add a new branch
+
+
 
 
 
