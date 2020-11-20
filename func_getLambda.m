@@ -1,5 +1,5 @@
 %% func_getLambda.m
-%
+% CIAO DANILO
 function Lambda = func_getLambda(J,A)
 % dbstop if warning
 
