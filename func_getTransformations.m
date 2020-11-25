@@ -2,28 +2,40 @@
 % The function calculates the transformationmatrices _T_ij_ of the _robot_
 % according to the given joint-configuration _q_
 
-function [T_ij,T_0j] = func_getTransformations(robot,q)
+function [T_ij,T_0j] = func_getTransformations(q)
 
-noJoints = robot.NoDofs;
+noJoints = 7;
+ Lengths = ...
+                [ 0.0000e-3, 0.0000e-3, 152.5000e-3;
+                0.0000e-3,   -11.0000e-3, 187.5000e-3;
+                0.0000e-3,   +11.0000e-3, 212.5000e-3;
+                0.0000e-3,   +11.0000e-3, 187.5000e-3;
+                0.0000e-3,   -11.0000e-3, 212.5000e-3;
+                0.0000e-3, -62.0000e-3, 187.5000e-3;
+                0.0000e-3, +62.0000e-3,  79.6e-3];
+            
+            JointAxes = [0,0,1;
+                0,1,0;
+                0,0,1;
+                0,-1,0;
+                0,0,1;
+                0,1,0;
+                0,0,1];
+            
+            T_finalLink_Flange = eye(4);
+            T_finalLink_Flange(1:3,4) = [0,0,31.4e-3]';
 
 T_ij = NaN(4,4,noJoints);
 
 for curJoint = 1:noJoints
     
-    if robot.JointTypes(curJoint) == 1
-        % it's a revolute joint
-        angles = robot.JointAxes(curJoint,:)*q(curJoint);
-        distance = robot.Lengths(curJoint,:);
-        T_ij(:,:,curJoint) = func_make_translation(distance)*func_make_rotation('xyz', angles);
-    else
-        % it's a prismatic joint
-        distance = robot.Lengths(curJoint,:) + robot.JointAxes(curJoint,:)*q(curJoint);
-        T_ij(:,:,curJoint) = func_make_translation(distance);
-    end    
-    
+        angles = JointAxes(curJoint,:)*q(curJoint);
+        distance = Lengths(curJoint,:);
+        T_ij(:,:,curJoint) = func_make_translation(distance)*func_make_rotation('xyz', angles);    
+
 end
 
-T_End_Flange = robot.T_finalLink_Flange;
+T_End_Flange = T_finalLink_Flange;
 
 T_0j = NaN(4,4,noJoints+1);
 T_0j(:,:,1) = T_ij(:,:,1);
