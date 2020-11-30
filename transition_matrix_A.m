@@ -1,5 +1,5 @@
-function A=transiton_matrix(xe,xdes,w,a_r,a_t)
-if (w==0 || w=1)
+function A=transiton_matrix_A(xe,xdes,w,a_r,a_t)
+if (w==0 || w==1)
     A=zeros(3,3);
 else
     ratio_art=(a_r)^2/(a_t)^2;
