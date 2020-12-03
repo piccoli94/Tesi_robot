@@ -4,7 +4,7 @@ close all
 a_h=1;
 a_r=5;
 a_t=10;
-k_1=2;
+k_1=10;
 a=0.3;
 Delta_x=ones(3,1).*(0:0.01:10);
 xdes=ones(3,length(Delta_x));
@@ -19,12 +19,12 @@ end
 w(k)=weight_vector(Delta_x(:,k), region, a_r, a_t); 
 norm_delta(k)=norm(Delta_x(:,k));
 A(:,:,k)=transition_matrix_A(xe(:,k),xdes(:,k),w(k),a_r,a_t);
-p(k)=A(1,1,k);
+p(k)=A(1,2,k);
 x_d(:,k)=x_i(:,k)+w(k)*(xdes(:,k)-x_i(:,k));
 delta_x(:,k)=xe(:,k)-x_d(:,k);
 k_p(k)=pos_stiffness(delta_x(:,k), k_1, a, a_h);
-end
 
+end
 plot(norm_delta,p,'r')
 hold on
 plot(norm_delta(1:end-1),3*diff(w),'b')
@@ -42,11 +42,11 @@ figure(3)
 plot(norm_delta,k_p)
 
 
-q=zeros(7,1);
-J = func_getJacobian(q,7)   
-J=J(1:3,:)% Jacobian   (da testare)
-A=A(:,:,1)
-M=eye(7)-pinv(J)*A*J;                                     % Modifier Matrix (6)
-dx_f=w*dxdes-A*dxdes;                                     % virtual position reference vector (8a)
-dqr=M\(pinv(J)*dx_f-alpha*pinv(J)*k_p*delta_x);           % derivate of virtual joint reference vector (8b)
-s=dq-dqr;      
+% q=zeros(7,1);
+% J = func_getJacobian(q,7)   
+% J=J(1:3,:)% Jacobian   (da testare)
+% A=A(:,:,1)
+% M=eye(7)-pinv(J)*A*J;                                     % Modifier Matrix (6)
+% dx_f=w*dxdes-A*dxdes;                                     % virtual position reference vector (8a)
+% dqr=M\(pinv(J)*dx_f-alpha*pinv(J)*k_p*delta_x);           % derivate of virtual joint reference vector (8b)
+% s=dq-dqr;      
