@@ -25,7 +25,7 @@ noJoints = 7;
             T_finalLink_Flange = eye(4);
             T_finalLink_Flange(1:3,4) = [0,0,35e-3]';
 
-T_ij = NaN(4,4,noJoints);
+T_ij = NaN(4,4,noJoints+1);
 
 for curJoint = 1:noJoints
     
@@ -36,7 +36,7 @@ for curJoint = 1:noJoints
 end
 
 T_End_Flange = T_finalLink_Flange;
-
+T_ij(:,:,curJoint+1)=T_End_Flange;
 T_0j = NaN(4,4,noJoints+1);
 T_0j(:,:,1) = T_ij(:,:,1);
     

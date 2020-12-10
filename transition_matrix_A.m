@@ -1,4 +1,4 @@
-function A=transiton_matrix_A(xe,xdes,w,a_r,a_t)
+function A=transition_matrix_A(xe,xdes,w,a_r,a_t)
 if (w==0 || w==1)
     A=zeros(3,3);
 else

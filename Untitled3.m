@@ -21,7 +21,7 @@ norm_delta(k)=norm(Delta_x(:,k));
 x_d(:,k)=x_i(:,k)+w(k)*(xdes(:,k)-x_i(:,k));
 delta_x(:,k)=xe(:,k)-x_d(:,k);
 k_p(k)=pos_stiffness(delta_x(:,k), k_1, a, a_h);
-dk_p(k)=derivate_kp(delta_x(:,k), a_h, a, k_1);
+dk_p(k)=derivate_kp(delta_x(:,k), a_h, a, k_1, region);
 
 end
 

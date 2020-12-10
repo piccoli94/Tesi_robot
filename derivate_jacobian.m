@@ -52,8 +52,4 @@ djdq7 =[ 0, 0, 0, 0, 0, 0, 0
  0, 0, 0, 0, 0, 0, 0
  0, 0, 0, 0, 0, 0, 0];
 
-dj_int=djdq1*dq1+djdq2*dq2+djdq3*dq3+djdq4*dq4+djdq5*dq5+djdq6*dq6+djdq7*dq7;
- dj_part(:,:,1)=djdq1*dq1; dj_part(:,:,2)=djdq2*dq2; dj_part(:,:,3)=djdq3*dq3; 
- dj_part(:,:,4)=djdq4*dq4; dj_part(:,:,5)=djdq5*dq5; dj_part(:,:,6)=djdq6*dq6; dj_part(:,:,7)=djdq7*dq7;
-dj.int=dj_int;
-dj.part=dj_part;
+dj=djdq1*dq1+djdq2*dq2+djdq3*dq3+djdq4*dq4+djdq5*dq5+djdq6*dq6+djdq7*dq7;

@@ -31,7 +31,7 @@ M=eye(7)-pinv(J)*A*J;                                     % Modifier Matrix (6)
 dx_f=w*dxdes-A*dxdes;                                     % virtual position reference vector (8a)
 dqr=M\(pinv(J)*dx_f-alpha*pinv(J)*k_p*delta_x);           % derivate of virtual joint reference vector (8b)
 s=dq-dqr;                                                 % sliding vector (8)
-ddqr=derivate_dqr(
+ddqr=derivate_dqr();
 Y_d=regres_matrix(q, dq, dqr, ddqr);                      %da fare (trovare modello dinamico)  %regressor matrix
 theta_cap=theta_estimate(theta, Y_d, L)                   % estimated dynamic parameter vector (9)
 

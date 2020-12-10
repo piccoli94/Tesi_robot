@@ -1,4 +1,4 @@
-function dA=derivate_A(Delta_x, xdes, dxdes, a_r, a_t, region)
+function dA=derivate_A(Delta_x, d_Delta_x, xdes, dxdes, a_r, a_t, region)
 ratio_art=(a_r^2)/(a_t^2);
 if (strcmp(region,'H-DR') || strcmp(region,'R-DR') || strcmp(region,'SS-SR'))
     dA=zeros(3,3);
