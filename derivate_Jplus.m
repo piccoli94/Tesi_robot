@@ -6,5 +6,5 @@ I2=eye(7);
 % elseif max(size(J(:,1)))==6
 %     I=eye(6);
 % end
-jplus=J'/(J*J' + eye(3)*0.1);
-djplus= -(jplus * dj * jplus) + (jplus * jplus' * dj' * (I1 - J * jplus)) + ((I2 - jplus * J) * dj' * jplus' * jplus);
+jplus=J_pseudoinverse(J);
+djplus= -(jplus * dj * jplus) + ((I2 - jplus * J) * dj' * (jplus') * jplus)+ (jplus * (jplus') * dj' * (I1 - J * jplus));

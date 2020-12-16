@@ -5,8 +5,8 @@ if(strcmp(region,'RR'))
     c_x=f_h;
  elseif(strcmp(region,'PR'))
      s_x=-s_x;
-     s_x_beta=unit_vector_sx(f_h, s_x, gamma, beta)
-     c_x= s_x_beta * norm(f_h) * cos( ( ( gamma - beta ) * pi ) / ( 2 * sigma ) )
+     s_x_beta=unit_vector_sx(f_h, s_x, gamma, beta);
+     c_x= s_x_beta * norm(f_h) * cos( ( ( gamma - beta ) * pi ) / ( 2 * sigma ) );
 elseif(strcmp(region,'CR'))
     c_x=0;
 end
