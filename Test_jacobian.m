@@ -13,7 +13,7 @@ alpha=10;
 x_i=0.5*ones(3,1);
 beta=pi/4;
 sigma=pi/2;
-w_s=20;
+w_s=0.1;
 %movimento giunti
 
 %  q1=t*0;
@@ -50,14 +50,14 @@ xdes=xm-Delta_x;
 dxdes=dxm-ones(3,length(t))*1/2;
 ddxdes=ddxm;
 
-f_h=0.3*[sin(t/2);sin(t/2-pi/4);sin(t/2-pi/2)];
-
 dqr=zeros(7,length(t));
 ddqr=zeros(7,length(t));
 xe=xm;
 dxe=dxm;
 ddxe=ddxm;
 
+
+f_h=3*ddxe;
 %% Iterazioni
 for k=1:length(t)
     
@@ -121,7 +121,7 @@ C_x=interaction_controller(mu_s, mu_x, c_x, f_h(:,k), region); % term of interac
 
 %%
 %%valori da plottare
-num=3; norm_x(k)=norm(Delta_x(:,k));
+num=1; norm_x(k)=norm(Delta_x(:,k));
 xe1(k)=xe(num,k); dxe1(k)=dxe(num,k);
 j11(k)=j(num,num); dj11(k)=dj(num,num);
 jplus11(k)=jplus(num,num); djplus11(k)=djplus(num,num); 
@@ -132,52 +132,118 @@ in=inv(M); m11(k)=in(num,num); dm11(k)=d_inv_M(num,num);
 kp(k)=k_p(k); dkp(k)=dk_p;
 ddxf1(k)=dd_xf(num); dxf1(k)=d_xf(num,k);
 qrdot1(k)=dqr(num,k); qrdotdot1(k)=ddqr(num);
+s1(k)=s(num);
 sx(:,k)=s_x;
+nsx(k)=norm(s_x);
+xd1(k)=x_d(num);
+gamma(k)=interact_region.gamma;
+
+fr{k}=interact_region.region;
+mus(k)=mu_s;
+cx1(k)=c_x(num);
+mux(k)=mu_x;
+Cx1(k)=C_x(num);
 end
 figure(1)
-plot(t,xe(1,:),t,dxe(1,:))
-title('B xe, R dxe')
+hold on
+plot3(xe(1,:),xe(2,:),xe(3,:))
+plot3(xdes(1,:),xdes(2,:),xdes(3,:))
+legend('xe','xdes')
+xlabel('x[m]'); ylabel('y[m]'); zlabel('z[m]');
+hold off
 
 figure(2)
+hold on
+plot3(dxe(1,:),dxe(2,:),dxe(3,:))
+plot3(dxdes(1,:),dxdes(2,:),dxdes(3,:))
+legend('dxe','dxdes')
+xlabel('Vx[m/s]'); ylabel('Vy[m/s]'); zlabel('Vz[m/s]');
+hold off
+
+figure(3)
+hold on
+plot3(ddxe(1,:),ddxe(2,:),ddxe(3,:))
+plot3(ddxdes(1,:),ddxdes(2,:),ddxdes(3,:))
+legend('ddxe','ddxdes')
+xlabel('Ax[m/s2]'); ylabel('Ay[m/s2]'); zlabel('Az[m/s2]');
+hold off
+
+figure(4)
 plot(t,j11,t,dj11)
-title('B j11, R dj11')
+legend('j11', 'dj11')
+xlabel('t[s]');
 
 figure(3)
 plot(t,jplus11,t,djplus11)
 title('B j^+11, R dj^+11')
 
 figure(4)
-plot(t,w1,t,dw1)
-title('B w, R dw')
+plot(t,w1)
+legend('w')
+xlabel('t[s]');
+
 
 figure(5)
-plot(t,a11,t,da11)
-title('B A, R dA')
+plot(t,a11)
+legend('A11')
+xlabel('t[s]')
 
 figure(6)
-plot(t,delta1,t,ddelta1)
-title('B deltax, R ddeltax')
+plot(t,delta1)
+legend('delta_x1')
+xlabel('t[s]')
 
 figure(7)
-plot(t,m11,t,dm11)
-title('B m11, R dm11')
+plot(t,m11)
+legend('M11')
+xlabel('t[s]')
 
 figure(8)
-plot(t,kp,t,dkp)
-title('B kp, R dkp')
+plot(t,kp)
+legend('kp')
+xlabel('t[s]')
 
 figure(9)
-plot(t,dxf1,t,ddxf1)
-title('B dxf, R ddxf')
+plot(t,norm_x)
+legend('||Delta x||')
+xlabel('t[s]')
 
 figure(10)
-plot(t,qrdot1,t,qrdotdot1)
-title('B dqr, R ddqr')
+plot(t,s1)
+legend('s1')
+xlabel('t[s]')
+
 
 figure(11)
-plot3(f_h(1,:),f_h(2,:),f_h(3,:));
-hold on
-plot3(sx(1,:),sx(2,:),sx(3,:));
-hold off
-title('B xdes, R dxdes')
+plot(t,qrdot1,t,qrdotdot1)
+legend('dqr1','ddqr1')
+xlabel('t[s]')
 
+figure(12)
+plot(t,gamma,t,beta.*ones(1,length(t)),t,(beta+sigma).*ones(1,length(t)))
+legend('gamma','beta','sigma+beta')
+xlabel('t[s]'); ylabel('[rad]')
+
+figure(12)
+plot(t,cx1)
+legend('c_x1')
+xlabel('t[s]');
+figure(13)
+plot(t,f_h(1,:))
+
+figure(14)
+plot(t,mus,t,nsx,t,w_s*ones(1,length(t)))
+legend('mu_s','norma s_x','w_s')
+xlabel('t[s]');
+
+figure(15)
+plot(t,mux)
+legend('mu_x')
+xlabel('t[s]');
+
+
+
+figure(17)
+plot(t,Cx1(1,:),t,f_h(1,:))
+legend('C_x1','f_h1')
+xlabel('t[s]');
