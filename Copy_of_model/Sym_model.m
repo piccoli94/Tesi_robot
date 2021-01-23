@@ -59,11 +59,12 @@ for curJoint=2:noJoints
 end    
 
 ml=sym('ml',[1,N],'real');
-I=sym('Il',[1,3,N],'real');
-
-for curJoint=1:noJoints
-Il(:,:,curJoint)=diag([I(1,:,curJoint)]);
+I=sym('Il',[3,3,N],'real');
+for curJoint=1:N
+    Il(:,:,curJoint)=diag(diag(I(:,:,curJoint)));
 end
+
+
 Blp=sym(zeros(7,7));
 Blo=sym(zeros(7,7));
 for curJoint=1:noJoints
@@ -105,9 +106,9 @@ for curJoint=1:noJoints
     Bmp=Bmp+mm(curJoint)*Jpm(:,:,curJoint)'*Jpm(:,:,curJoint);
 end
 for curJoint=1:noJoints
-    Bmo=Bmo+Jom(:,:,curJoint)'*T_0j(1:3,1:3,curJoint)'*Im(:,:,curJoint)*T_0j(1:3,1:3,curJoint)*Jom(:,:,curJoint);
+    Bmo=Bmo+Jom(:,:,curJoint)'*Im(:,:,curJoint)*Jom(:,:,curJoint);
 end
-
+B=(Blp+Blo+Bmp+Bmo);
 %---------------------------------------------------------------------
 %gravity
 g=sym(zeros(7,1));
@@ -141,7 +142,7 @@ for i=1:7
         end
     end
 end
-B=(Blp+Blo+Bmp+Bmo);
+
 C=(hlp+hlo+hmp+hmo);
 
 dqr=sym('dqr',[1,N],'real');

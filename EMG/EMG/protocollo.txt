@@ -1,0 +1,9 @@
+ordine protocollo
+
+REST -> condizione di riposo con gomito appoggiato al tavolo torno qui dopo ogni task)
+1 -> grasp to drink (prendo il bicchiere e lo porto alla bocca per bere)
+REST
+2 -> grasp to poor and drink (prendo la bottiglia, verso, prendo il bicchiere, bevo)
+REST
+3-> grasp to eat (afferro il cucchiaio, raccolgo, porto alla bocca)
+REST
